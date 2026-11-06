@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>کتابخانهٔ من</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <meta name="description" content="کتابخانهٔ هوشمند من: جست‌وجو، رزرو و امانت کتاب، دستیار هوشمند، کتاب‌خوان آنلاین، تایمر مطالعه، باشگاه کتاب‌خوان‌ها و پنل مدیریت">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    /* تم ذخیره‌شده را قبل از نمایش صفحه اعمال می‌کنیم تا صفحه چشمک نزند */
+    try {
+      var savedTheme = localStorage.getItem('my-library-theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.querySelector('meta[name="color-scheme"]').content = savedTheme;
+      }
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mirza:wght@500;700&family=Vazirmatn:wght@300..800&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="css/features-2.css">
+</head>
+<body>
+  <a class="skip-link" href="#view" data-action="skip-to-content">رفتن به محتوای اصلی</a>
+
+  <!-- سربرگ سایت: لوگو، منو، اعلان‌ها و حساب کاربری -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="کتابخانهٔ من، صفحهٔ اصلی">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <rect class="bm-a" x="5" y="9" width="8" height="26" rx="1.5"/>
+          <rect class="bm-b" x="15" y="5" width="8" height="30" rx="1.5"/>
+          <rect class="bm-a" x="25.5" y="10" width="8" height="25" rx="1.5" transform="rotate(12 29.5 22.5)"/>
+          <rect class="bm-c" x="15" y="27" width="8" height="3"/>
+          <rect class="bm-d" x="3" y="35" width="34" height="2.5" rx="1.25"/>
+        </svg>
+        <span class="brand-name">کتابخانهٔ من</span>
+      </a>
+
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-action="toggle-menu">
+        <span class="sr-only">منو</span>
+        <span data-icon="menu"></span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="منوی اصلی">
+        <a href="#home" data-nav="home">خانه</a>
+        <a href="#books" data-nav="books">کتاب‌ها</a>
+        <a href="#discover" data-nav="discover">کشف</a>
+        <a href="#study" data-nav="study">مطالعه</a>
+        <a href="#club" data-nav="club">باشگاه</a>
+        <a href="#assistant" data-nav="assistant"><span data-icon="sparkles"></span> دستیار</a>
+        <details class="nav-more">
+          <summary>بیشتر <span data-icon="chevron"></span></summary>
+          <div class="nav-more-list">
+            <a href="#shelf" data-nav="shelf">قفسهٔ من</a>
+            <a href="#authors" data-nav="authors">نویسندگان</a>
+            <a href="#scan" data-nav="scan">اسکن QR و جلد</a>
+            <a href="#tour" data-nav="tour">تور مجازی کتابخانه</a>
+            <a href="#competition" data-nav="competition">مسابقهٔ کتابخوانی</a>
+            <a href="#donate" data-nav="donate">اهدا و هدیه</a>
+            <a href="#app" data-nav="app">اپ و اشتراک</a>
+            <a href="#feedback" data-nav="feedback">نظرات و پیشنهادات</a>
+            <a href="#help" data-nav="help">راهنما و پشتیبانی</a>
+            <a href="#about" data-nav="about">دربارهٔ کتابخانهٔ من</a>
+            <a href="#contact" data-nav="contact">ارتباط با ما</a>
+            <a href="#librarian" data-nav="librarian" data-staff="staff" hidden>پنل کتابدار</a>
+            <a href="#admin" data-nav="admin" data-staff="admin" hidden>پنل مدیریت</a>
+          </div>
+        </details>
+      </nav>
+
+      <div class="header-tools">
+        <a class="icon-btn bell" id="bell" href="#notifications" hidden>
+          <span data-icon="bell"></span><span class="bell-count" hidden></span>
+        </a>
+        <button class="icon-btn" type="button" data-action="toggle-theme" title="تغییر حالت روشن و تیره">
+          <span class="sr-only">تغییر حالت روشن و تیره</span>
+          <span data-icon="moon"></span>
+        </button>
+        <div id="account-slot"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- محتوای هر صفحه با جاوااسکریپت اینجا ساخته می‌شود -->
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <!-- پانویس سایت -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-title">کتابخانهٔ من</p>
+        <p>کتابخانهٔ دیجیتال هوشمند: جست‌وجو، رزرو، مطالعه، دستیار هوشمند و باشگاه کتاب‌خوان‌ها.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">کتابخانه</p>
+        <a href="#books">کتاب‌های موجود</a>
+        <a href="#discover">کشف کتاب</a>
+        <a href="#authors">نویسندگان</a>
+        <a href="#tour">تور مجازی</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">مطالعه و سرگرمی</p>
+        <a href="#study">میز مطالعه</a>
+        <a href="#read">کتاب‌خوان آنلاین</a>
+        <a href="#club">باشگاه کتاب‌خوان‌ها</a>
+        <a href="#competition">مسابقهٔ کتابخوانی</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">پشتیبانی</p>
+        <a href="#assistant">دستیار هوشمند</a>
+        <a href="#help">سوالات رایج</a>
+        <a href="#feedback">نظرات و پیشنهادات</a>
+        <a href="#contact">ارتباط با ما</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year></span> کتابخانهٔ من · پروژهٔ مدرسه</p>
+      <p class="demo-note">نسخهٔ نمایشی: اطلاعات فقط در همین مرورگر ذخیره می‌شود.</p>
+    </div>
+  </footer>
+
+  <!-- نوار مقایسه و تایمر شناور -->
+  <div class="compare-tray" id="compare-tray" hidden></div>
+  <a class="timer-pill" id="timer-pill" href="#study" hidden><span data-icon="clock"></span> <span data-timer-text></span></a>
+
+  <!-- پنجرهٔ پیام (مودال) و اعلان‌های کوچک -->
+  <dialog id="modal" class="modal" closedby="any" aria-labelledby="modal-title">
+    <div id="modal-body"></div>
+  </dialog>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <!-- ترتیب فایل‌ها مهم است: کتابخانه‌های QR، داده‌ها، منطق، ابزارها، صفحه‌ها و در آخر برنامهٔ اصلی -->
+  <script src="js/vendor/qrcode.js"></script>
+  <script src="js/vendor/jsQR.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/data-extra.js"></script>
+  <script src="js/data-authors.js"></script>
+  <script src="js/data-texts.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/store-plus.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/media.js"></script>
+  <script src="js/assistant.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/books.js"></script>
+  <script src="js/pages/discover.js"></script>
+  <script src="js/pages/authors.js"></script>
+  <script src="js/pages/account.js"></script>
+  <script src="js/pages/study.js"></script>
+  <script src="js/pages/reader.js"></script>
+  <script src="js/pages/club.js"></script>
+  <script src="js/pages/shelf.js"></script>
+  <script src="js/pages/scan.js"></script>
+  <script src="js/pages/tour.js"></script>
+  <script src="js/pages/competition.js"></script>
+  <script src="js/pages/services.js"></script>
+  <script src="js/pages/community.js"></script>
+  <script src="js/pages/librarian.js"></script>
+  <script src="js/pages/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

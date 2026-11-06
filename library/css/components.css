@@ -1,0 +1,343 @@
+/* =========================================================
+   components.css — ظاهر بخش‌های مختلف صفحه‌ها
+   (جلد کتاب، قفسه، کارت‌ها، مسابقه، اشتراک، مدیریت و ...)
+   ========================================================= */
+
+/* ---------- سرتیتر صفحه‌ها ---------- */
+.page-head { display: grid; gap: 8px; margin-bottom: 28px; max-width: 70ch; }
+.eyebrow { color: var(--gold); font-weight: 700; font-size: .9rem; letter-spacing: .02em; }
+.lead { color: var(--ink-soft); font-size: 1.08rem; }
+.section { margin-top: 48px; }
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.muted { color: var(--ink-soft); }
+.small { font-size: .88rem; }
+.num { font-variant-numeric: tabular-nums; }
+.panel { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px; min-width: 0; }
+.panel h2, .panel h3 { margin-bottom: 12px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .two-col { grid-template-columns: minmax(0, 1fr); } }
+.empty { padding: 32px 20px; text-align: center; color: var(--ink-soft); border: 1.5px dashed var(--rule); border-radius: var(--radius); display: grid; gap: 12px; justify-items: center; }
+.breadcrumb { display: flex; gap: 8px; color: var(--ink-soft); font-size: .92rem; margin-bottom: 18px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--ink-soft); }
+
+/* ---------- صفحهٔ اصلی: معرفی و قفسه ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px; align-items: center; padding-block: 12px 8px; }
+.hero h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.25; }
+.hero h1 .gold { color: var(--gold); }
+.hero .lead { margin-top: 14px; max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.searchbar { display: flex; gap: 8px; margin-top: 24px; max-width: 520px; }
+.searchbar .input-wrap { position: relative; flex: 1; min-width: 0; }
+.searchbar .input-wrap .icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--ink-soft); pointer-events: none; }
+.searchbar .input { padding-right: 44px; }
+@media (max-width: 860px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+
+.shelf-wrap { min-width: 0; }
+.shelf {
+  display: flex; align-items: flex-end; justify-content: center; gap: 5px;
+  height: 300px; padding-inline: 14px; overflow: hidden;
+}
+.shelf-board { height: 16px; border-radius: 3px; background: linear-gradient(var(--rule), var(--sunk)); box-shadow: var(--shadow-sm); }
+.shelf-caption { margin-top: 10px; font-size: .85rem; color: var(--ink-soft); text-align: center; }
+.spine {
+  flex: 0 1 var(--w, 50px); min-width: 28px; height: var(--h, 240px);   /* اگر جا کم باشد، عطف‌ها کمی باریک‌تر می‌شوند */
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 12px 0 10px; border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(90deg, var(--c2), var(--c1) 28%, var(--c1) 72%, var(--c2));
+  color: #FFFFFF; text-decoration: none;
+  transform-origin: bottom center; transition: transform .2s ease;
+}
+.spine:hover, .spine:focus-visible { transform: translateY(-12px); }
+.spine:nth-child(4n+2) { transform: rotate(-2deg); }
+.spine:nth-child(4n+2):hover { transform: rotate(-2deg) translateY(-12px); }
+.spine-title { writing-mode: vertical-rl; font-family: var(--font-display); font-weight: 700; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 0; }
+.spine-band { width: 100%; height: 6px; background: rgb(255 255 255 / .25); }
+.call-label {                                   /* برچسب شمارهٔ رده، دو خطی مثل برچسب واقعی عطف */
+  display: block; padding: 2px 3px; border-radius: 2px; max-width: calc(100% - 6px);
+  background: #FFFFFF; color: #142033; text-align: center;
+  font-size: .62rem; font-weight: 700; line-height: 1.35; white-space: nowrap; overflow: hidden;
+  font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate;
+}
+@media (max-width: 520px) { .shelf { height: 240px; } .spine { height: calc(var(--h, 240px) * .8); } .spine:nth-child(n+8) { display: none; } }
+
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 40px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.stat { padding: 18px 20px; border-inline-start: 1px solid var(--rule); }
+.stat:first-child { border-inline-start: 0; }
+.stat b { display: block; font-size: 1.7rem; font-family: var(--font-ui); font-weight: 700; color: var(--lapis); line-height: 1.3; }
+.stat span { color: var(--ink-soft); font-size: .9rem; }
+@media (max-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stat:nth-child(3) { border-inline-start: 0; } .stat:nth-child(n+3) { border-top: 1px solid var(--rule); } }
+
+/* نقشهٔ قابلیت‌ها در صفحهٔ اصلی */
+.feature-main { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.feature-card {
+  display: grid; gap: 8px; align-content: start; padding: 20px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius);
+  color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s;
+}
+.feature-card:hover { border-color: var(--lapis); transform: translateY(-2px); }
+.feature-card .icon { width: 28px; height: 28px; color: var(--lapis); }
+.feature-card b { font-size: 1.08rem; }
+.feature-card span { color: var(--ink-soft); font-size: .9rem; line-height: 1.7; }
+.feature-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.feature-link {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px;
+  border-radius: var(--radius-sm); background: var(--sunk); color: var(--ink); text-decoration: none; font-size: .95rem;
+}
+.feature-link:hover { background: var(--lapis-soft); color: var(--lapis); }
+.feature-link .icon { color: var(--lapis); }
+@media (max-width: 1000px) { .feature-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .feature-main { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .feature-list { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- جلد کتاب ---------- */
+.cover {
+  position: relative; aspect-ratio: 2 / 3; width: 100%; max-width: 100%;
+  display: grid; grid-template-rows: 1fr auto; gap: 6px;
+  padding: 16% 18% 11% 12%;
+  border-radius: 8px 3px 3px 8px;               /* عطف کتاب سمت راست است */
+  background: linear-gradient(155deg, var(--c1), var(--c2));
+  color: #FFFFFF; overflow: hidden; text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.cover::before {                                /* سایهٔ عطف */
+  content: ""; position: absolute; inset-block: 0; right: 0; width: 8%;
+  background: linear-gradient(90deg, rgb(255 255 255 / .14), rgb(0 0 0 / .3));
+}
+.cover::after {                                 /* قاب تزئینی طلایی */
+  content: ""; position: absolute; inset: 6% 12% 6% 6%;
+  border: 1px solid rgb(255 220 150 / .45); border-radius: 2px; pointer-events: none;
+}
+.cover-title { align-self: center; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; line-height: 1.5; text-wrap: balance; overflow-wrap: anywhere; }
+.cover-foot { display: grid; gap: 4px; justify-items: center; }
+.cover-orn { width: 34px; height: 1px; background: rgb(255 220 150 / .7); }
+.cover-author { font-size: .7rem; opacity: .88; line-height: 1.5; }
+.cover-lg .cover-title { font-size: 1.7rem; }
+.cover-lg .cover-author { font-size: .9rem; }
+
+/* ---------- کارت کتاب و فهرست کتاب‌ها ---------- */
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); gap: 26px 18px; }
+.book-card { position: relative; display: grid; gap: 8px; align-content: start; color: var(--ink); text-decoration: none; min-width: 0; }
+.book-card .cover { transition: transform .2s ease, box-shadow .2s ease; }
+.book-card:hover .cover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.book-card-title { font-weight: 700; line-height: 1.6; }
+.book-card-author { color: var(--ink-soft); font-size: .88rem; }
+.book-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+.stamp {
+  display: inline-block; padding: 0 9px; border: 2px solid currentColor; border-radius: 4px;
+  font-size: .78rem; font-weight: 800; line-height: 1.75; white-space: nowrap;
+  color: var(--free); background: var(--card);
+}
+.stamp.loan { color: var(--loan); }
+.book-card .stamp { position: absolute; top: 10px; left: 8px; transform: rotate(-6deg); box-shadow: var(--shadow-sm); }
+.stars { display: inline-flex; align-items: center; gap: 1px; color: var(--gold); font-size: .85rem; }
+.stars .icon { width: 1em; height: 1em; }
+.stars .off { color: var(--rule); }
+.stars b { color: var(--ink); margin-inline-start: 4px; font-weight: 600; }
+.chip-badge { display: inline-block; padding: 0 8px; border-radius: 999px; background: var(--gold-soft); color: var(--ink); font-size: .78rem; line-height: 1.9; }
+
+.toolbar { display: grid; gap: 14px; margin-bottom: 26px; padding: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.toolbar-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.toolbar .searchbar { margin: 0; max-width: none; flex: 1 1 320px; }
+.toolbar .select { width: auto; min-width: 150px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 4px 14px; border-radius: 999px; border: 1px solid var(--rule);
+  background: var(--card); cursor: pointer; font-size: .9rem; line-height: 1.8;
+}
+.chip:hover { border-color: var(--lapis); }
+.chip[aria-pressed="true"] { background: var(--lapis); color: var(--lapis-ink); border-color: var(--lapis); }
+.result-count { color: var(--ink-soft); font-size: .92rem; }
+mark { background: var(--gold-soft); color: inherit; border-radius: 3px; padding: 0 2px; }
+
+/* ---------- صفحهٔ کتاب ---------- */
+.book-page { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 40px; align-items: start; }
+.book-side { display: grid; gap: 16px; position: sticky; top: 90px; }
+.book-info { display: grid; gap: 20px; min-width: 0; }
+.book-info h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+.byline { font-size: 1.1rem; color: var(--ink-soft); }
+.byline b { color: var(--ink); }
+.meta-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; margin: 0; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--card); }
+.meta-list div { padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.meta-list dt { color: var(--ink-soft); font-size: .82rem; }
+.meta-list dd { margin: 0; font-weight: 600; }
+.status-panel { display: grid; gap: 12px; padding: 18px; border-radius: var(--radius); border: 1.5px solid var(--free); background: var(--free-soft); }
+.status-panel.loan { border-color: var(--loan); background: var(--loan-soft); }
+.status-panel .status-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.status-panel .stamp { font-size: .95rem; transform: rotate(-3deg); }
+.rate-box { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.rating-big { font-family: var(--font-display); font-size: 2.4rem; line-height: 1; color: var(--ink); }
+.star-input { display: inline-flex; flex-direction: row-reverse; gap: 2px; }
+.star-input button { background: none; border: 0; padding: 2px; cursor: pointer; color: var(--rule); }
+.star-input button .icon { width: 28px; height: 28px; }
+.star-input button.on { color: var(--gold); }
+.star-input button:hover, .star-input button:hover ~ button { color: var(--gold); }
+.prose { max-width: 68ch; line-height: 2; }
+.book-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* برگهٔ تاریخ برگشت (مثل برگه‌ای که پشت کتاب‌های کتابخانه چسبانده می‌شود) */
+.due-slip { background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 14px 16px 10px; box-shadow: var(--shadow-sm); }
+.due-slip-head { font-weight: 700; font-size: .9rem; text-align: center; padding-bottom: 6px; border-bottom: 2px solid var(--ink); }
+.due-slip ol { list-style: none; margin: 0; padding: 0; }
+.due-slip li { display: flex; justify-content: space-between; gap: 8px; padding: 5px 2px; border-bottom: 1px solid var(--rule); font-size: .85rem; min-height: 32px; }
+.due-slip li span:last-child { color: var(--loan); font-weight: 700; transform: rotate(-2deg); font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .book-page { grid-template-columns: 1fr; }
+  .book-side { position: static; grid-template-columns: 160px minmax(0, 1fr); align-items: start; }
+}
+
+/* نظرها */
+.comments { display: grid; gap: 12px; }
+.comment { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 14px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.comment-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.comment-head b { font-weight: 700; }
+.comment p { margin-top: 4px; overflow-wrap: anywhere; }
+
+/* ---------- زبانه‌ها ---------- */
+.tabs { display: flex; gap: 4px; padding: 4px; background: var(--sunk); border-radius: 999px; width: fit-content; max-width: 100%; overflow-x: auto; margin-bottom: 22px; }
+.tab { padding: 6px 18px; border: 0; border-radius: 999px; background: transparent; cursor: pointer; white-space: nowrap; text-decoration: none; color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--card); color: var(--lapis); font-weight: 700; box-shadow: var(--shadow-sm); }
+
+/* ---------- حساب کاربری: کارت عضویت ---------- */
+.member-card {
+  position: relative; display: grid; gap: 14px; padding: 22px; overflow: hidden;
+  border-radius: 14px; color: #FFFFFF;
+  background: linear-gradient(135deg, #1F3C88, #0E1E4A);
+}
+.member-card::after { content: ""; position: absolute; left: -40px; bottom: -60px; width: 200px; height: 200px; border-radius: 50%; border: 18px solid rgb(226 183 90 / .25); }
+.member-card .mc-top { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.member-card .mc-name { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; }
+.member-card .mc-no { font-variant-numeric: tabular-nums; letter-spacing: .08em; direction: ltr; text-align: right; }
+.member-card .mc-plan { display: inline-block; padding: 2px 12px; border-radius: 999px; background: #E2B75A; color: #1B1405; font-weight: 700; font-size: .85rem; }
+.loan-list { display: grid; gap: 10px; }
+.loan-row { display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.loan-row .cover { padding: 6px; border-radius: 4px 2px 2px 4px; }
+.loan-row .cover-title, .loan-row .cover-author, .loan-row .cover-orn { display: none; }
+.days-left { font-weight: 700; color: var(--free); }
+.days-left.late { color: var(--loan); }
+@media (max-width: 520px) { .loan-row { grid-template-columns: 44px minmax(0, 1fr); } .loan-row .btn { grid-column: 1 / -1; } }
+
+/* ---------- مسابقه ---------- */
+.contest-band { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: center; padding: 28px; border-radius: 14px; background: var(--lapis-soft); border: 1px solid var(--rule); }
+.contest-band h1 { color: var(--lapis); }
+.prize-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.prize-list li { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--card); border-radius: var(--radius-sm); }
+.medal { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font-weight: 800; background: var(--gold); color: #1B1405; flex: none; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; counter-reset: step; }
+.step { padding: 18px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.step b { display: block; margin-bottom: 4px; }
+@media (max-width: 760px) { .contest-band, .steps { grid-template-columns: minmax(0, 1fr); } }
+.quiz { display: grid; gap: 16px; }
+.progress { height: 8px; border-radius: 999px; background: var(--sunk); overflow: hidden; }
+.progress span { display: block; height: 100%; background: var(--gold); border-radius: inherit; transition: width .3s; }
+.quiz-q { font-size: 1.2rem; font-weight: 700; line-height: 1.8; }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 560px) { .quiz-options { grid-template-columns: 1fr; } }
+.quiz-option {
+  padding: 12px 16px; text-align: right; cursor: pointer;
+  background: var(--card); border: 1.5px solid var(--rule); border-radius: var(--radius-sm);
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--lapis); }
+.quiz-option.correct { border-color: var(--free); background: var(--free-soft); font-weight: 700; }
+.quiz-option.wrong { border-color: var(--loan); background: var(--loan-soft); }
+.quiz-option:disabled { cursor: default; }
+.score-big { font-family: var(--font-display); font-size: 3rem; color: var(--lapis); line-height: 1.2; }
+
+/* ---------- جدول‌ها (جدول امتیاز و مدیریت) ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--card); }
+.table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+.table th, .table td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.table th { background: var(--sunk); font-weight: 700; font-size: .86rem; }
+.table tr:last-child td { border-bottom: 0; }
+.table tr.me td { background: var(--gold-soft); }
+.table td.wrap-cell { white-space: normal; min-width: 220px; }
+
+/* ---------- نظرات و پیشنهادات ---------- */
+.fb-list { display: grid; gap: 12px; }
+.fb-item { display: grid; gap: 8px; padding: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.fb-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.fb-type { padding: 0 10px; border-radius: 999px; background: var(--lapis-soft); color: var(--lapis); font-size: .82rem; font-weight: 700; line-height: 1.9; }
+.fb-status { font-size: .82rem; color: var(--ink-soft); }
+.fb-status.done { color: var(--free); font-weight: 700; }
+.fb-item p { overflow-wrap: anywhere; }
+.fb-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.like-btn { display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--rule); background: var(--card); cursor: pointer; font-size: .88rem; }
+.like-btn[aria-pressed="true"] { color: var(--loan); border-color: var(--loan); background: var(--loan-soft); }
+
+/* ---------- سوالات رایج ---------- */
+.faq-list { display: grid; gap: 10px; }
+.faq { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.faq summary { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 18px; cursor: pointer; font-weight: 700; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary .icon { transition: transform .2s; color: var(--lapis); }
+.faq[open] summary .icon { transform: rotate(180deg); }
+.faq .faq-a { padding: 0 18px 16px; color: var(--ink-soft); line-height: 2; }
+
+/* ---------- اپ و اشتراک ---------- */
+.app-band { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 36px; align-items: center; }
+.phone {
+  width: 220px; aspect-ratio: 9 / 18.5; padding: 10px; border-radius: 34px;
+  background: #0B1222; box-shadow: var(--shadow);
+}
+.phone-screen { height: 100%; border-radius: 26px; background: var(--paper); overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; }
+.phone-bar { padding: 14px 14px 8px; font-family: var(--font-display); font-weight: 700; color: var(--lapis); font-size: 1.05rem; }
+.phone-books { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px; align-content: start; }
+.phone-books .cover { padding: 10px 14% 8px 8%; }
+.phone-books .cover-title { font-size: .62rem; }
+.phone-books .cover-author, .phone-books .cover-orn { display: none; }
+.phone-tabs { display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid var(--rule); color: var(--ink-soft); }
+.phone-tabs .icon:first-child { color: var(--lapis); }
+.install-steps { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; }
+@media (max-width: 760px) { .app-band { grid-template-columns: 1fr; justify-items: center; } }
+.plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 1000px) { .plans { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .plans { grid-template-columns: 1fr; } }
+.plan { position: relative; display: grid; gap: 12px; align-content: start; padding: 22px; background: var(--card); border: 1.5px solid var(--rule); border-radius: var(--radius); }
+.plan.featured { border-color: var(--gold); }
+.plan.current { border-color: var(--lapis); box-shadow: 0 0 0 3px var(--lapis-soft); }
+.plan-flag { position: absolute; top: -12px; right: 18px; padding: 0 10px; border-radius: 999px; background: var(--gold); color: #1B1405; font-size: .8rem; font-weight: 700; line-height: 1.9; }
+.plan-price { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: var(--lapis); line-height: 1.3; }
+.plan-price small { font-family: var(--font-ui); font-size: .85rem; color: var(--ink-soft); font-weight: 400; }
+.plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: .93rem; }
+.plan li { display: flex; gap: 8px; align-items: start; }
+.plan li .icon { color: var(--free); margin-top: 4px; }
+.install-progress { display: grid; gap: 10px; }
+
+/* ---------- اهدا و هدیه ---------- */
+.gift-card {
+  position: relative; display: grid; gap: 12px; padding: 26px; overflow: hidden;
+  border-radius: 14px; background: var(--gold-soft); border: 2px dashed var(--gold); color: var(--ink);
+}
+.gift-card h3 { font-size: 1.5rem; color: var(--lapis); }
+.gift-card .gift-book { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: center; }
+.gift-card .cover { padding: 8px 14% 6px 8%; }
+.gift-card .cover-title { font-size: .58rem; }
+.gift-card .cover-author, .gift-card .cover-orn { display: none; }
+.gift-msg { padding: 12px 14px; background: var(--card); border-radius: var(--radius-sm); font-style: italic; overflow-wrap: anywhere; }
+.gift-code { font-family: Consolas, monospace; font-weight: 700; letter-spacing: .12em; direction: ltr; unicode-bidi: isolate; }
+
+/* ---------- ارتباط با ما و درباره ---------- */
+.contact-list { display: grid; gap: 12px; }
+.contact-item { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.contact-item > .icon { width: 44px; height: 44px; padding: 10px; border-radius: 50%; background: var(--lapis-soft); color: var(--lapis); }
+.contact-item .value { font-weight: 700; overflow-wrap: anywhere; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+.values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .values { grid-template-columns: 1fr; } }
+.value-card { padding: 20px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); display: grid; gap: 6px; }
+.value-card .icon { width: 30px; height: 30px; color: var(--gold); }
+.hours { width: 100%; border-collapse: collapse; }
+.hours td { padding: 8px 0; border-bottom: 1px dashed var(--rule); }
+.hours td:last-child { text-align: left; font-variant-numeric: tabular-nums; }
+
+/* ---------- مدیریت ---------- */
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 26px; }
+.admin-stat { padding: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+.admin-stat b { display: block; font-family: var(--font-ui); font-weight: 700; font-size: 1.6rem; color: var(--lapis); line-height: 1.4; }
+.admin-note { padding: 14px 16px; border-radius: var(--radius); background: var(--gold-soft); margin-bottom: 20px; }
+
+/* ---------- چاپ کارت هدیه (فقط وقتی فایل مستقیم باز شده) ---------- */
+@media print {
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area { position: absolute; top: 0; right: 0; left: 0; }
+}

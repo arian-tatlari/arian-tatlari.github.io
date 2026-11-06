@@ -1,0 +1,328 @@
+/* =========================================================
+   base.css — رنگ‌ها، فونت‌ها و اجزای عمومی سایت
+   (سربرگ، منو، پانویس، دکمه‌ها، فرم‌ها، پنجرهٔ پیام)
+   ========================================================= */
+
+/* چیدمان: مثل یک تالار مطالعه — ستون‌های راست‌به‌چپ، سربرگی شبیه تابلوی کتابخانه،
+   و کتاب‌هایی که مثل شیء واقعی با برچسب عطف و مهر امانت کشیده شده‌اند */
+:root {
+  /* رنگ‌ها (حالت روشن) — لاجوردی و طلایی، از رنگ‌های تذهیب کتاب‌های قدیمی */
+  --paper: #F3F5F9;        /* زمینهٔ صفحه */
+  --card: #FFFFFF;         /* سطح کارت‌ها */
+  --sunk: #E9EDF4;         /* زمینهٔ ورودی‌ها و برچسب‌ها */
+  --ink: #142033;          /* رنگ متن */
+  --ink-soft: #56617A;     /* متن کم‌رنگ */
+  --rule: #D9E0EB;         /* خط‌ها و حاشیه‌ها */
+  --lapis: #1F3C88;        /* رنگ اصلی: لاجوردی */
+  --lapis-strong: #172E6B;
+  --lapis-ink: #FFFFFF;    /* متن روی رنگ اصلی */
+  --lapis-soft: #E4EAF8;
+  --gold: #B8862B;         /* رنگ تأکید: طلایی (ستاره‌ها و تزئین) */
+  --gold-soft: #F7EEDB;
+  --free: #137A48;         /* وضعیت «آزاد» */
+  --free-soft: #E1F3E9;
+  --loan: #B42318;         /* وضعیت «در امانت» — رنگ مهر */
+  --loan-soft: #FBE8E6;
+  --hold: #8A5A00;         /* وضعیت «رزرو شده» */
+  --hold-soft: #FBF1DD;
+  --shadow-sm: 0 1px 2px rgb(20 32 51 / .07);
+  --shadow: 0 1px 2px rgb(20 32 51 / .06), 0 10px 28px rgb(20 32 51 / .09);
+  --backdrop: rgb(10 16 30 / .55);
+
+  /* فونت‌ها: «میرزا» برای تیترها، «وزیرمتن» برای متن. اگر اینترنت نباشد Tahoma جایگزین می‌شود */
+  --font-display: "Mirza", "Vazirmatn", Tahoma, serif;
+  --font-ui: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --maxw: 1180px;
+
+  color-scheme: light dark;
+  accent-color: var(--lapis);
+}
+
+/* حالت تیره (وقتی سیستم کاربر تیره است، مگر اینکه خودش حالت روشن را انتخاب کرده باشد) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1420; --card: #161F31; --sunk: #1C2740;
+    --ink: #E7ECF5; --ink-soft: #A1ACC2; --rule: #26324A;
+    --lapis: #86A6F7; --lapis-strong: #A9C0FA; --lapis-ink: #0E1420; --lapis-soft: #1C2A4D;
+    --gold: #E2B75A; --gold-soft: #33290F;
+    --free: #4FC48C; --free-soft: #12352A;
+    --loan: #F28A7C; --loan-soft: #3B1C1A;
+    --hold: #EBBE6A; --hold-soft: #352A12;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / .35);
+    --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 12px 30px rgb(0 0 0 / .35);
+    --backdrop: rgb(0 0 0 / .65);
+    color-scheme: dark;
+  }
+}
+/* حالت تیره‌ای که کاربر با دکمه انتخاب کرده */
+:root[data-theme="dark"] {
+  --paper: #0E1420; --card: #161F31; --sunk: #1C2740;
+  --ink: #E7ECF5; --ink-soft: #A1ACC2; --rule: #26324A;
+  --lapis: #86A6F7; --lapis-strong: #A9C0FA; --lapis-ink: #0E1420; --lapis-soft: #1C2A4D;
+  --gold: #E2B75A; --gold-soft: #33290F;
+  --free: #4FC48C; --free-soft: #12352A;
+  --loan: #F28A7C; --loan-soft: #3B1C1A;
+  --hold: #EBBE6A; --hold-soft: #352A12;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / .35);
+  --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 12px 30px rgb(0 0 0 / .35);
+  --backdrop: rgb(0 0 0 / .65);
+  color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
+
+/* ---------- پایه ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { direction: rtl; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.85;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* نوار بالای صفحه در گوشی‌هایی که بریدگی دارند */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--card);
+}
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.4; margin: 0; text-wrap: balance; font-weight: 700; }
+h1 { font-size: clamp(2rem, 4.5vw, 3.1rem); }
+h2 { font-size: clamp(1.45rem, 3vw, 1.95rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0; }
+section { min-width: 0; }   /* جدول‌های پهن داخل بخش‌ها، صفحه را از عرض بیرون نزنند */
+a { color: var(--lapis); text-underline-offset: 4px; }
+img, svg { max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--lapis); outline-offset: 2px; border-radius: 4px; }
+[hidden] { display: none !important; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; margin: -1px; padding: 0; border: 0;
+}
+.skip-link {
+  position: absolute; top: -100px; right: 16px; z-index: 50;
+  background: var(--lapis); color: var(--lapis-ink); padding: 8px 14px; border-radius: var(--radius-sm);
+}
+.skip-link:focus { top: 12px; }
+.icon { width: 1.25em; height: 1.25em; flex: none; vertical-align: -0.25em; }
+
+/* ظرف وسط‌چین صفحه با فاصلهٔ کناری امن */
+.wrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- سربرگ ---------- */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--card);
+  border-bottom: 1px solid var(--rule);
+}
+.header-inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); flex: none; }
+.brand-mark { width: 38px; height: 38px; }
+.brand-mark .bm-a { fill: var(--lapis); }
+.brand-mark .bm-b { fill: var(--gold); }
+.brand-mark .bm-c { fill: var(--card); }
+.brand-mark .bm-d { fill: var(--ink); }
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; line-height: 1; }
+
+.site-nav { display: flex; align-items: center; gap: 4px; flex: 1; }
+.site-nav a, .nav-more summary {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px; border-radius: 999px;
+  color: var(--ink); text-decoration: none; font-size: .95rem; cursor: pointer;
+}
+.site-nav a:hover, .nav-more summary:hover { background: var(--sunk); }
+.site-nav a[aria-current="page"] { color: var(--lapis); background: var(--lapis-soft); font-weight: 600; }
+.nav-more { position: relative; }
+.nav-more summary { list-style: none; }
+.nav-more summary::-webkit-details-marker { display: none; }
+.nav-more[open] summary { background: var(--sunk); }
+.nav-more.has-current > summary { color: var(--lapis); font-weight: 600; }
+.nav-more-list {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 30;
+  min-width: 220px; padding: 6px;
+  display: grid; gap: 2px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.nav-more-list a { border-radius: var(--radius-sm); }
+
+.header-tools { display: flex; align-items: center; gap: 8px; margin-inline-start: auto; }
+.icon-btn {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 999px;
+  border: 1px solid var(--rule); background: var(--card); cursor: pointer;
+}
+.icon-btn:hover { background: var(--sunk); }
+.menu-btn { display: none; }
+.user-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 4px 4px 12px; border-radius: 999px;
+  border: 1px solid var(--rule); text-decoration: none; color: var(--ink); font-size: .92rem;
+}
+.user-chip:hover { background: var(--sunk); }
+.avatar {
+  display: inline-grid; place-items: center; flex: none;
+  width: 32px; height: 32px; border-radius: 999px;
+  background: var(--lapis); color: var(--lapis-ink); font-weight: 700;
+}
+
+/* منو در صفحه‌های کوچک */
+@media (max-width: 980px) {
+  .menu-btn { display: inline-grid; order: 3; }
+  .header-tools { order: 2; }
+  .site-nav {
+    display: none;
+    position: absolute; top: 100%; right: 0; left: 0;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px));
+    background: var(--card); border-bottom: 1px solid var(--rule); box-shadow: var(--shadow);
+  }
+  .site-nav.open { display: flex; }
+  .site-nav a, .nav-more summary { border-radius: var(--radius-sm); padding: 10px 12px; }
+  .nav-more summary { display: none; }
+  .nav-more-list { position: static; display: grid; padding: 0; border: 0; box-shadow: none; min-width: 0; background: transparent; }
+  .user-chip .user-name { display: none; }
+  .user-chip { padding: 3px; }
+}
+@media (max-width: 480px) {
+  .login-label { display: none; }
+  .brand-name { font-size: 1.25rem; }
+  .header-inner { gap: 10px; }
+}
+
+/* ---------- محتوای اصلی و پانویس ---------- */
+.view { flex: 1; outline: none; padding-block: 28px 64px; }
+.site-footer { background: var(--card); border-top: 1px solid var(--rule); margin-top: 24px; }
+.footer-inner {
+  max-width: var(--maxw); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 36px 24px;
+  display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 28px;
+}
+.footer-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+.footer-brand p:last-child { color: var(--ink-soft); max-width: 36ch; }
+.footer-col { display: grid; align-content: start; gap: 6px; }
+.footer-head { font-weight: 700; margin-bottom: 4px; }
+.footer-col a { color: var(--ink-soft); text-decoration: none; }
+.footer-col a:hover { color: var(--lapis); text-decoration: underline; }
+.footer-bottom {
+  max-width: var(--maxw); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 14px 22px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+  border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: .88rem;
+}
+@media (max-width: 760px) {
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+/* ---------- دکمه‌ها ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 8px 20px;
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  background: var(--lapis); color: var(--lapis-ink);
+  font-weight: 600; text-decoration: none; cursor: pointer;
+  transition: background-color .15s, transform .15s;
+}
+.btn:hover { background: var(--lapis-strong); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn-ghost:hover { background: var(--sunk); }
+.btn-gold { background: var(--gold); color: #1B1405; }
+.btn-gold:hover { background: var(--gold); filter: brightness(1.08); }
+.btn-danger { background: transparent; color: var(--loan); border-color: currentColor; }
+.btn-danger:hover { background: var(--loan-soft); }
+.btn-sm { min-height: 34px; padding: 4px 12px; font-size: .9rem; }
+.btn-block { width: 100%; }
+.link-btn { background: none; border: 0; padding: 0; color: var(--lapis); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- فرم‌ها ---------- */
+.form { display: grid; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field > label, .field-label { font-weight: 600; font-size: .95rem; }
+.field .hint { color: var(--ink-soft); font-size: .85rem; }
+.input, .select, .textarea {
+  width: 100%; min-height: 46px; padding: 9px 14px;
+  background: var(--card); border: 1.5px solid var(--rule); border-radius: var(--radius-sm);
+}
+.textarea { min-height: 120px; resize: vertical; line-height: 1.8; }
+.input:focus, .select:focus, .textarea:focus { border-color: var(--lapis); outline: 3px solid var(--lapis-soft); outline-offset: 0; }
+.input[dir="ltr"] { text-align: left; }
+.error-msg { display: none; color: var(--loan); font-size: .87rem; }
+/* پیام خطا فقط بعد از اینکه کاربر با فیلد کار کرد (یا فرم را فرستاد) نشان داده می‌شود */
+.input:user-invalid, .select:user-invalid, .textarea:user-invalid,
+.was-validated .input:invalid, .was-validated .select:invalid, .was-validated .textarea:invalid { border-color: var(--loan); }
+.input:user-invalid ~ .error-msg, .select:user-invalid ~ .error-msg, .textarea:user-invalid ~ .error-msg,
+.was-validated :invalid ~ .error-msg { display: block; }
+.form-note { padding: 12px 14px; border-radius: var(--radius-sm); background: var(--gold-soft); font-size: .92rem; }
+.form-note code { direction: ltr; unicode-bidi: isolate; font-family: Consolas, monospace; font-weight: 700; }
+
+/* ---------- پنجرهٔ پیام (مودال) ---------- */
+.modal {
+  width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 48px);
+  padding: 0; border: 1px solid var(--rule); border-radius: 14px;
+  background: var(--card); color: var(--ink); box-shadow: var(--shadow);
+}
+.modal::backdrop { background: var(--backdrop); }
+.modal-inner { padding: 24px; display: grid; gap: 16px; }
+.modal-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.modal-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start; }
+/* اگر مرورگر قدیمی باشد و dialog را نشناسد */
+.modal.fallback-open { position: fixed; inset: 0; margin: auto; z-index: 60; height: fit-content; }
+
+/* ---------- اعلان‌های کوچک ---------- */
+.toasts {
+  position: fixed; z-index: 70;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: max(16px, env(safe-area-inset-left, 0px));
+  display: grid; gap: 8px; max-width: min(380px, calc(100vw - 32px));
+}
+.toast {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  background: var(--ink); color: var(--paper); box-shadow: var(--shadow);
+  animation: toast-in .25s ease-out;
+}
+.toast.ok .icon { color: var(--free); }
+.toast.bad .icon { color: var(--loan); }
+@keyframes toast-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* اگر کاربر «حرکت کمتر» را خواسته باشد، انیمیشن‌ها و جابه‌جایی‌ها خاموش می‌شوند */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
